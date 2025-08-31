@@ -1,0 +1,31 @@
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+aironet-91(config)#hostname aironet-91
+aironet-91(config)#dot11 ssid 91-welcomeToOkada
+aironet-91(config-ssid)#vlan 91
+Warning: Vlan 91 already mapped to SSID 91-welcomeToRivan. SSIDs with same vlan association cannot be attached to the same interface.
+
+aironet-91(config-ssid)#authentication open
+aironet-91(config-ssid)#authentication key-management wpa
+aironet-91(config-ssid)#wpa-psk ascii C1sc0123
+aironet-91(config-ssid)#guest-mode
+aironet-91(config-ssid)#default Int Dot11Radio 0
+Cannot disable station-role
+
+Interface Dot11Radio0 set to default configuration
+aironet-91(config)#default interface gigabitEthernet 0
+%command not allowed, cannot remove bridge-group 1
+Interface GigabitEthernet0 set to default configuration
+aironet-91(config)#int dot11radio 0
+aironet-91(config-if)#no shut
+aironet-91(config-if)#channel 11
+aironet-91(config-if)#encryption mode ciphers tkip
+aironet-91(config-if)#encryption vlan 91 mode ciphers tkip
+aironet-91(config-if)#ssid 91-welcomeToOkada
+aironet-91(config-if)#exit
+aironet-91(config)#interface dot11radio 0.91
+aironet-91(config-subif)#encapsulation dot1q 91 native
+aironet-91(config-subif)#bridge-group 1
+aironet-91(config-subif)#exit
+aironet-91(config)#end
+aironet-91#

@@ -1,0 +1,21 @@
+{
+    "aironetInfo": {
+        "device_type": "cisco_ios_telnet",
+        "host": "10.91.10.3",
+        "username": "admin",
+        "password": "pass",
+        "secret": "pass"
+    },
+
+    "aironetConfig": {
+        "hostname": "aironet-91",
+        "ssid": "91-welcomeToOkada",
+        "authentication": "open",
+        "key-man": "wpa",
+        "wifi-pass": "C1sc0123",
+        "channel": "11",
+        "encr-mod": "tkip",
+        "vlan": "91"
+    }
+}
+
