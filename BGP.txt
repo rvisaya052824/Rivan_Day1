@@ -1,0 +1,147 @@
+AS1 207.7.7.1
+AS2 I2 (PLDT)
+AS3 I3 (Globe)
+
+
+@R1
+conf t
+no router bgp 1
+router bgp 1
+bgp log-neighbor-changes
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 207.9.9.2 remote-as 3
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 207.9.9.0 mask 255.255.255.0
+
+end
+
+
+@I1
+conf t
+no router bgp 1
+router bgp 45
+bgp log-neighbor-changes
+neighbor 45.4.5.5 remote-as 45
+neighbor 24.2.4.2 remote-as 2
+neighbor 208.8.8.1 remote-as 1
+
+network 45.4.5.0 mask 255.255.255.0
+network 24.2.4.0 mask 255.255.255.0
+network 208.8.8.0 mask 255.255.255.0
+network 44.44.44.44 mask 255.255.255.255
+
+!PretentInternet
+network 0.0.0.0
+ip route 0.0.0.0 0.0.0.0 null 0
+ip route 10.0.0.0 255.0.0.0 208.8.8.1
+end
+
+@I2
+conf t
+no router bgp 1
+router bgp 2
+bgp log-neighbor-changes
+neighbor 25.2.5.5 remote-as 45
+neighbor 24.2.4.4 remote-as 45
+neighbor 207.7.7.1 remote-as 1
+neighbor 32.3.2.3 remote-as 3
+
+network 25.2.5.0 mask 255.255.255.0
+network 24.2.4.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 32.3.2.0 mask 255.255.255.0
+network 22.22.22.22 mask 255.255.255.255
+!PretentInternet
+network 0.0.0.0
+ip route 0.0.0.0 0.0.0.0 null 0
+ip route 10.0.0.0 255.0.0.0 207.7.7.1
+end
+
+
+
+@I3
+conf t
+router bgp 3
+bgp log-neighbor-changes
+neighbor 35.3.5.5 remote-as 45
+neighbor 32.3.2.2 remote-as 2
+neighbor 209.9.9.1 remote-as 1
+
+network 35.3.5.0 mask 255.255.255.0
+network 32.3.2.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 33.33.33.33 mask 255.255.255.255
+
+!PretentInternet
+network 0.0.0.0
+ip route 0.0.0.0 0.0.0.0 null 0
+ip route 10.0.0.0 255.0.0.0 209.9.9.1
+end
+
+
+I4
+conf t
+no router bgp 3
+router bgp 45
+bgp log-neighbor-changes
+neighbor 35.3.5.3 remote-as 3
+neighbor 25.2.5.2 remote-as 2
+neighbor 45.4.5.4 remote-as 45
+
+network 35.3.5.0 mask 255.255.255.0
+network 25.2.5.0 mask 255.255.255.0
+network 45.4.5.0 mask 255.255.255.0
+network 55.55.55.55 mask 255.255.255.255
+network 8.8.8.8 mask 255.255.255.255
+!PretentInternet
+network 0.0.0.0
+ip route 0.0.0.0 0.0.0.0 null 0
+end
+
+
+
+@R1
+conf t
+router ospf 1
+ def orig alwa
+end
+
+
+@r4
+conf t
+router ospf 1
+redistribute eigrp 100 subnets
+exit
+
+!OSPF 
+conf t
+router eigrp 100
+resdistribute OSPF 1 metric 1544 2000 255 1 1500
+end
+
+@P1
+conf t
+ip route 0.0.0.0 0.0.0.0 10.2.1.1
+end
+
+
+@P2
+conf t
+ip route 0.0.0.0 0.0.0.0 10.2.2.2
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
